@@ -24,8 +24,8 @@ app.getCharaList = (characterName) => {
         $('.notice').removeClass('hide');
         app.displayChara(data);
     }).catch((err) => {
-        $('.direction3').removeClass('hide');
-        $('.intro').addClass('hide');
+        $('.direction3, .notice').removeClass('hide');
+        $('.intro, .direction1, .direction2, .characterResults, .seiyuuResults, .vcContainer, .aniChara').addClass('hide');
     });
 };
 
@@ -115,7 +115,7 @@ app.showVc = (results) => {
             </div>
         </li>
         `;
-        $('.direction1, .characterResults').addClass('hide');
+        $('.direction1, .direction3, .characterResults').addClass('hide');
         $('.direction2, .seiyuuResults').removeClass('hide');
         $('.seiyuuResults').append(vcResultsHtml);
     });
