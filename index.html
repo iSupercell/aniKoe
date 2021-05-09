@@ -3,7 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Si-Jia JavaScript P2</title>
+    <title>Ani-KOE</title>
+
+    <link rel="icon" type="image/x-icon" href="./assets/favicon.ico"/>
 
     <!-- Icon Kit HERE -->
     <script src="https://kit.fontawesome.com/6d162e65a0.js" crossorigin="anonymous"></script>
@@ -18,7 +20,7 @@
 </head>
 
 <body>
-    <header>
+    <header id="top">
         <div class="wrapper">
             <h1>
                 Ani-KOE
@@ -39,25 +41,33 @@
             <!-- Code for the search bar ends HERE -->
 
             <!-- Code for search result starts HERE -->
-            <section class="charaList">
+            <section class="searchResult">
+                <p class="direction3 direction hide">Search invalid. Please try again.</p>
                 <div class="intro">
-                    <p class="instruction">Instruction</p>
+                    <p class="instruction">Instructions</p>
                     <ul>
                         <li>
-                            <p>Search the name of an anime character of your choice. Include their full name to narrow down the option.</p>
+                            <p>Search the name of an anime character of your choice. Include their full name to narrow down the options.</p>
                         </li>
                         <li>
                             <p>Select the character that interests you to see their Japanese voice actor.</p>
                         </li>
                         <li>
-                            <p>All the main characters that share the same voice as your selected character will be listed in the Shared Voice section!</p>
+                            <p>All the main anime characters that share the same voice as your selected character will be listed in the Main Role section!</p>
                         </li>
                     </ul>
                 </div>
-                <ul class="searchResults">
-                    <p class="hide">Select a character to see their Japanese voice actor.</p>
+                <p class="direction1 direction hide">Select a character to see their Japanese voice actor.</p>
+                <p class="direction2 direction hide">Select a voice actor to see all their main roles.</p>
+                <ul class="characterResults hide">
                     <!-- The list of character result from search input will appear here -->
                 </ul>
+                <ul class="seiyuuResults hide">
+                    <!-- The list of character result from search input will appear here -->
+                </ul>
+                <div class="vcContainer hide">
+                    <!-- The information for the selected voice actor will appear here -->
+                </div>
             </section>
             <!-- Code for search result ends HERE -->
         </div>
@@ -67,7 +77,7 @@
             <div class="sectionHeader">
                 <div class="wrapper">
                     <h2>
-                        Shared Voice
+                        Main Roles
                         <i aria-hidden="true" class="fas fa-user-circle"></i>
                     </h2>
                 </div>
@@ -76,9 +86,14 @@
             <div class="wrapper">
                 <div class="voiceRoles">
                     <p class="notice">Nothing to see here yet! Please search for a character name to get started.</p>
-                    <ul class="aniChara">
+                    <ul class="aniChara hide">
                         <!-- The list of roles will appear here -->
                     </ul>
+                    <div class="scrollUp">
+                        <a href="#top" aria-label="scroll back to the top">
+                            <i class="fas fa-caret-up" aria-hidden="true"></i>
+                        </a>
+                    </div>
                 </div>
             </div>
         </section>

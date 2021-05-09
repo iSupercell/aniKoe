@@ -16,6 +16,7 @@ html,
 body {
     font-family: 'Noto Sans TC', sans-serif;
     font-size: 125%;
+    scroll-behavior: smooth;
 }
 
 body {
@@ -34,8 +35,9 @@ main {
 }
 
 form,
-.searchResults,
-.vcCard,
+.characterResults,
+.seiyuuResults,
+.vcContainer,
 .voiceRoles,
 .aniChara,
 .overlay {
@@ -47,6 +49,7 @@ h1,
 a:hover,
 .roles h2,
 input[type="submit"]:hover,
+input[type="submit"]:focus,
 .overlay .animeName,
 .overlay .charaName,
 footer p {
@@ -109,8 +112,9 @@ form i {
 input {
     font-family: 'Noto Sans TC', sans-serif;
     border: none;
-    width: 40%;
+    max-width: 600px;
     padding: 10px;
+    width: 90%;
 }
 
 input[type="submit"] {
@@ -118,7 +122,8 @@ input[type="submit"] {
     text-transform: uppercase;
 }
 
-input[type="submit"]:hover {
+input[type="submit"]:hover,
+input[type="submit"]:focus {
     background: #00AAE8;
     cursor: pointer;
     transition-duration: 0.3s;
@@ -133,7 +138,7 @@ input[type="submit"]:hover {
 /* Voice Actor Info Code */
 /* --------------------- */
 
-.charaList {
+.searchResult {
     background: #EFEFEF;
     max-width: 1000px;
     width: 90%;
@@ -147,32 +152,47 @@ input[type="submit"]:hover {
     text-transform: uppercase;
 }
 
-.searchResults {
+.direction {
+    text-align: center;
+}
+
+.characterResults,
+.seiyuuResults {
     flex-wrap: wrap;
     list-style-type: none;
     padding: 0;
 }
 
-.searchResults li {
+.characterResults li,
+.seiyuuResults li {
     margin: 15px;
     position: relative;
     transition: 0.3s;
     width: 140px;
 }
 
-.searchResults img,
-.charaOverlay {
+.characterResults img,
+.seiyuuResults img,
+.charaOverlay,
+.seiyuuOverlay {
+    border: 2px solid #00BBFF;
     border-radius: 20px;
 }
 
-.searchResults li:hover,
-.searchResults li:focus {
+.characterResults li:hover,
+.characterResults li:focus,
+.seiyuuResults li:hover,
+.seiyuuResults li:focus {
     cursor: pointer;
     outline: none;
     transform: scale(1.15);
 }
 
-.vcCard img {
+.vcContainer {
+    margin: 50px 0;
+}
+
+.portraitContainer {
     width: 225px;
     border: solid 2px #00BBFF;
     box-shadow: -8px -8px 0px #00BBFF;
@@ -190,7 +210,7 @@ input[type="submit"]:hover {
 }
 
 .vcInfo h3 {
-    font-size: 2.8rem;
+    font-size: 2rem;
     font-weight: 500;
     margin: 20px 0 40px 0;
 }
@@ -212,24 +232,28 @@ input[type="submit"]:hover {
 .notice {
     background: #EFEFEF;
     text-align: center;
-    margin: 140px 0 0 0;
+    margin: 140px 0;
+    max-width: 650px;
     padding: 20px 0;
-    width: 650px;
+    width: 90%;
 }
 
 .aniChara {
     flex-wrap: wrap;
-    width: 85%;
-    margin: 80px 0;
+    max-width: 1400px;
+    width: 90%;
+    margin: 80px 0 20px 0;
     padding: 0;
 }
 
 .aniChara li {
     position: relative;
-    margin: 30px;
+    margin: 30px 15px;
+    width: 180px;
 }
 
 .charaOverlay,
+.seiyuuOverlay,
 .overlay {
 	background: rgba(0, 0, 0, 0.80);
     color: #00BBFF;
@@ -245,8 +269,36 @@ input[type="submit"]:hover {
 }
 
 .charaOverlay:hover,
-.overlay:hover {
+.charaOverlay:focus,
+.seiyuuOverlay:hover,
+.seiyuuOverlay:focus,
+.overlay:hover,
+.overlay:focus {
 	opacity: 1;
+}
+
+.scrollUp i {
+    font-size: 3rem;
+    margin-bottom: 100px;
+    padding: 10px;
+    transition: 0.3s;
+    transform: translateY(0);
+    animation: hoverEffect 2.5s infinite linear;
+}
+
+.scrollUp a {
+    color: #00BBFF;
+}
+
+.scrollUp a:hover,
+.scrollUp a:focus {
+    color: #000;
+}
+
+@keyframes hoverEffect {
+    30% {
+        transform: translateY(30%);
+    }
 }
 
 

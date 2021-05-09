@@ -1,18 +1,6 @@
-// Overview of how it should work
-// ---------------------------- //
-// A search bar for user to search for voice actors by name
-// Quick information on the voice actor will appear next to their picture
-// The search will return the list of characters the voice actors voiced (filter the results to only show main roles)
-// Append the list of characters and include their picture, name and the anime title they are from
-// Search bar will empty once the user submit a name
-// Previously appended results will be replaced by new search results
-
-
-
-// ---------------------------- //
-// My codes starts below!!!
 const app = {};
 
+// Jikan API endpoint
 app.apiUrl = `https://api.jikan.moe/v3/`;
 
 // API call to get list of characters from search input
@@ -29,98 +17,177 @@ app.getCharaList = (characterName) => {
         }
     }).then((data) => {
         $('.aniChara').empty();
-        $('.searchResults').empty();
+        $('.characterResults').empty();
+        $('.seiyuuResults').empty();
+        $('.vcContainer').empty();
+        $('.vcContainer, .direction3').addClass('hide');
+        $('.notice').removeClass('hide');
         app.displayChara(data);
+    }).catch((err) => {
+        $('.direction3').removeClass('hide');
+        $('.intro').addClass('hide');
     });
 };
 
-// API call to get detailed character info
-app.getChara= (charaId) => {
+// API call to get selected character info
+app.getChara = (charaId) => {
     $.ajax({
-        url: `${app.apiUrl}character`,
+        url: `${app.apiUrl}character/${charaId}`,
         method: `GET`,
-        dataType: `JSON`,
-        data: {
-            id: `${charaId}`
-        }
+        dataType: `JSON`
     }).then((data) => {
-        // app.displayChara(data);
-        // console.log(data);
+        app.showVc(data);
+    });
+};
+
+// API call to get selected voice actor info
+app.getVc = (vcId) => {
+    $.ajax({
+        url: `${app.apiUrl}person/${vcId}`,
+        method: `GET`,
+        dataType: `JSON`
+    }).then((data) => {
+        app.displayVc(data);
     });
 };
 
 
-// Code for displaying data from API
+// Code for displaying characters from search input
 app.displayChara = (results) => {
+    
+    // Apply filter so that only characters in anime with image will be shown
     const charaResults = results.results;
-    charaResults.forEach((chara) => {
+    const animeOnly = charaResults.filter((aniChara) => {
+        return (aniChara.image_url != `https://cdn.myanimelist.net/images/questionmark_23.gif` && aniChara.anime.length > 0);
+    });
+
+    animeOnly.forEach((chara) => {
         const cleanName = chara.name.replace(`,`, ``);
-        if (chara.image_url != `https://cdn.myanimelist.net/images/questionmark_23.gif` && chara.anime.length > 0) {
-            const charaHtml = `
-            <li>
-                <img src="${chara.image_url}" alt="${cleanName}" tabIndex="0">
-                <div class="charaOverlay">
-                    <p>${cleanName}</p>
-                </div>
-            </li>
-            `;
-            $('.intro').addClass('hide');
-            $('.searchResults').removeClass('hide');
-            $('.searchResults').append(charaHtml);
+        const charaHtml = `
+        <li>
+            <img src="${chara.image_url}" alt="${cleanName}">
+            <div class="charaOverlay" tabIndex="0">
+                <p>${cleanName}</p>
+            </div>
+        </li>
+        `;
+        $('.intro, .direction2, .aniChara').addClass('hide');
+        $('.direction1, .characterResults').removeClass('hide');
+        $('.characterResults').append(charaHtml);
+    });
+
+    $('.characterResults li').on('click', (e) => {
+        const targetItem = e.target.closest(`li`);
+        const uniqueItem = Array.from($('.characterResults')[0].children);
+        const itemIndex = uniqueItem.findIndex(currentItem => currentItem === targetItem);
+        const itemId = animeOnly[itemIndex].mal_id;
+        app.getChara(itemId);
+    });
+
+    $('.characterResults li').on('keyup', (e) => {
+        const targetItem = e.target.closest(`li`);
+        const uniqueItem = Array.from($('.characterResults')[0].children);
+        const itemIndex = uniqueItem.findIndex(currentItem => currentItem === targetItem);
+        const itemId = animeOnly[itemIndex].mal_id;
+        if (e.key === `Enter`) {
+            app.getChara(itemId);
         }
-        $('.searchResults li').on('click', () => {
-            console.log(this);
-        });
     });
 };
 
-app.selectChara = (id) => {
 
-}
+// Code for displaying JP voice actors of chosen character
+app.showVc = (results) => {
 
-// app.displayVc = function(results) {
-    // console.log(`this is info`, results);
+    // Apply filter so that only JP voice actors will be shown
+    const vcList = results.voice_actors;
+    const jpOnly = vcList.filter((vc) => {
+        return vc.language === `Japanese`;
+    });
+
+    jpOnly.forEach((jpVc) => {
+        const cleanName = jpVc.name.replace(`,`, ``);
+        const vcResultsHtml = `
+        <li>
+            <img src="${jpVc.image_url}" alt="${cleanName}">
+            <div class="seiyuuOverlay" tabIndex="0">
+                <p>${cleanName}</p>
+            </div>
+        </li>
+        `;
+        $('.direction1, .characterResults').addClass('hide');
+        $('.direction2, .seiyuuResults').removeClass('hide');
+        $('.seiyuuResults').append(vcResultsHtml);
+    });
+
+    $('.seiyuuResults li').on('click', (e) => {
+        const targetItem = e.target.closest(`li`);
+        const uniqueItem = Array.from($('.seiyuuResults')[0].children);
+        const itemIndex = uniqueItem.findIndex(currentItem => currentItem === targetItem);
+        const itemId = jpOnly[itemIndex].mal_id;
+        app.getVc(itemId);
+    });
+
+    $('.seiyuuResults li').on('keyup', (e) => {
+        const targetItem = e.target.closest(`li`);
+        const uniqueItem = Array.from($('.seiyuuResults')[0].children);
+        const itemIndex = uniqueItem.findIndex(currentItem => currentItem === targetItem);
+        const itemId = jpOnly[itemIndex].mal_id;
+        if (e.key === `Enter`) {
+            app.getVc(itemId);
+        }
+    });
+};
+
+
+// Code for displaying voice actor's info and all their main roles
+app.displayVc = (results) => {
     
     // Cleaning up Birthday data from API results
-    // const editBday = results.birthday;
-    // const editedBday = editBday.substr(0, 10);
+    const editBday = results.birthday;
+    const editedBday = editBday.substr(0, 10);
 
     // HTML code for voice actor information
-    // const vcHtml = `
-    // <img src="${results.image_url}" alt="${results.name}">
-    // <ul class="vcInfo">
-    //     <li><h2><i aria-hidden="true" class="far fa-address-card"></i> ${results.name}</h2></li>
-    //     <li><h3>${results.family_name} ${results.given_name}</h3></li>
-    //     <li><p>Birthday: ${editedBday}</p></li>
-    //     <li><p>Total Roles: ${results.voice_acting_roles.length}</p></li>
-    //     <li><p>MyAnimeList: <a href="${results.url}"> <i class="fas fa-link"></i> Click</a></p></li>
-    // </ul>
-    // `;
-    // $('.vcCard').html(vcHtml);
+    const vcHtml = `
+    <div class="portraitContainer">
+        <img src="${results.image_url}" alt="${results.name}">
+    </div>
+    <ul class="vcInfo">
+        <li><h2><i aria-hidden="true" class="far fa-address-card"></i> ${results.name}</h2></li>
+        <li><h3>${results.family_name} ${results.given_name}</h3></li>
+        <li><p>Birthday: ${editedBday}</p></li>
+        <li><p>Total Roles: ${results.voice_acting_roles.length}</p></li>
+        <li><p>MyAnimeList: <a href="${results.url}" target="_blank" rel="noopener noreferrer"> <i class="fas fa-link"></i> Click</a></p></li>
+    </ul>
+    `;
+    $('.direction2, .seiyuuResults, .notice').addClass('hide');
+    $('.vcContainer').removeClass('hide');
+    $('.vcContainer').append(vcHtml);
 
-    // Apply filter so that only main character roles will show
-    // const rolesArray = results.voice_acting_roles;
-    // const onlyMain = rolesArray.filter(function(roleType) {
-    //     return roleType.role.length == 4;
-    // });
+    // Apply filter so that only main roles with image will be shown
+    const rolesArray = results.voice_acting_roles;
+    const onlyMain = rolesArray.filter((roleType) => {
+        return (roleType.character.image_url != `https://cdn.myanimelist.net/images/questionmark_23.gif` && roleType.role.length == 4);
+    });
 
-    // HTML code for voice roles (and append to page)
-    // onlyMain.forEach(function(role) {
-    //     // console.log(role);
-    //     const aniRoles = `
-    //     <li>
-    //         <img src="${role.character.image_url}" alt="${role.character.name}">
-    //         <div class="overlay">
-    //             <p>Anime:</p>
-    //             <p class="animeName">${role.anime.name}</p>
-    //             <p>Character Name</p>
-    //             <p class="charaName">${role.character.name}</p>
-    //         </div>
-    //     </li>
-    //     `;
-    //     $('.aniChara').append(aniRoles);
-    // });
-// };
+    // HTML code for voice roles
+    onlyMain.forEach((role) => {
+        const cleanName = role.character.name.replace(`,`, ``);
+        const aniRoles = `
+        <li>
+            <img src="${role.character.image_url}" alt="${role.character.name}">
+            <div class="overlay" tabIndex="0">
+                <p>Anime:</p>
+                <p class="animeName">${role.anime.name}</p>
+                <p>Character Name</p>
+                <p class="charaName">${cleanName}</p>
+            </div>
+        </li>
+        `;
+        $('.aniChara').removeClass('hide');
+        $('.aniChara').append(aniRoles);
+    });
+};
 
 
 // Code that kicks off the app
@@ -130,7 +197,6 @@ app.init = function() {
         event.preventDefault();
         const charaSearch = $('input').val();
         app.getCharaList(charaSearch);
-        // console.log(`this is an input`, charaSearch)
         $('#searchInput').val('');
     });
 };
