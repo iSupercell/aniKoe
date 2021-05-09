@@ -16,18 +16,19 @@
     <link rel="stylesheet" href="./styles.css">
 
 </head>
-<body>
 
-    <div class="wrapper">
-        <header>
+<body>
+    <header>
+        <div class="wrapper">
             <h1>
                 Ani-KOE
                 <i aria-hidden="true" class="fas fa-microphone-alt"></i>
             </h1>
-        </header>
+        </div>
+    </header>
 
-
-        <main>
+    <main>
+        <div class="wrapper">
             <!-- Code for the search bar starts HERE -->
             <form action="#" method="#" class="myForm" name="myForm">
                 <i aria-hidden="true" class="fas fa-search"></i>
@@ -37,59 +38,59 @@
             </form>
             <!-- Code for the search bar ends HERE -->
 
-
-            <div class="flex1">
-                <!-- Code for search result starts HERE -->
-                <section class="charaList">
-                    <div class="intro">
-                        <p class="instruction">Instruction</p>
-                        <ul>
-                            <li>
-                                <p>Search the name of an anime character of your choice. Include their full name to narrow down the option.</p>
-                            </li>
-                            <li>
-                                <p>Select the character that interests you to see their Japanese voice actor.</p>
-                            </li>
-                            <li>
-                                <p>All the main characters that share the same voice as your selected character will be listed in the Shared Voice section!</p>
-                            </li>
-                        </ul>
-                    </div>
-                </section>
-                <!-- Code for search result ends HERE -->
-            </div>
-
-
-            <!-- Code for section divider starts HERE -->
-            <div class="roles">
-                <h2 class="roles">
-                    Shared Voice
-                    <i aria-hidden="true" class="fas fa-user-circle"></i>
-                </h2>
-            </div>
-            <!-- Code for section divider ends HERE -->
-
-
-            <!-- Code for list of rolls starts HERE -->
-            <section class="voiceRoles">
-                <p class="notice">Nothing to see here yet! Please search for a character name to get started.</p>
-                <ul class="aniChara">
-                    <!-- The list of roles will appear under this section -->
+            <!-- Code for search result starts HERE -->
+            <section class="charaList">
+                <div class="intro">
+                    <p class="instruction">Instruction</p>
+                    <ul>
+                        <li>
+                            <p>Search the name of an anime character of your choice. Include their full name to narrow down the option.</p>
+                        </li>
+                        <li>
+                            <p>Select the character that interests you to see their Japanese voice actor.</p>
+                        </li>
+                        <li>
+                            <p>All the main characters that share the same voice as your selected character will be listed in the Shared Voice section!</p>
+                        </li>
+                    </ul>
+                </div>
+                <ul class="searchResults">
+                    <p class="hide">Select a character to see their Japanese voice actor.</p>
+                    <!-- The list of character result from search input will appear here -->
                 </ul>
             </section>
-            <!-- Code for list of rolls ends HERE -->
-        </main>
-    </div>
+            <!-- Code for search result ends HERE -->
+        </div>
 
+        <!-- Code for list of rolls starts HERE -->
+        <section class="roles">
+            <div class="sectionHeader">
+                <div class="wrapper">
+                    <h2>
+                        Shared Voice
+                        <i aria-hidden="true" class="fas fa-user-circle"></i>
+                    </h2>
+                </div>
+            </div>
+
+            <div class="wrapper">
+                <div class="voiceRoles">
+                    <p class="notice">Nothing to see here yet! Please search for a character name to get started.</p>
+                    <ul class="aniChara">
+                        <!-- The list of roles will appear here -->
+                    </ul>
+                </div>
+            </div>
+        </section>
+        <!-- Code for list of rolls ends HERE -->
+    </main>
 
     <footer>
         <p>Created by Si-Jia M. at <a href="https://junocollege.com/">Juno College</a></p>
     </footer>
-    
 
     <!-- jQuery HERE -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-
     <!-- External Script Sheet HERE -->
     <script src="./scripts.js"></script>
 
