@@ -16,10 +16,7 @@ app.getCharaList = (characterName) => {
             limit: 10,
         }
     }).then((data) => {
-        $('.aniChara').empty();
-        $('.characterResults').empty();
-        $('.seiyuuResults').empty();
-        $('.vcContainer').empty();
+        $('.aniChara, .characterResults, .seiyuuResults, .vcContainer').empty();
         $('.vcContainer, .direction3').addClass('hide');
         $('.notice').removeClass('hide');
         app.displayChara(data);
@@ -65,9 +62,11 @@ app.displayChara = (results) => {
         const cleanName = chara.name.replace(`,`, ``);
         const charaHtml = `
         <li>
-            <img src="${chara.image_url}" alt="${cleanName}">
-            <div class="charaOverlay" tabIndex="0">
-                <p>${cleanName}</p>
+            <div class="charaContainer">
+                <img src="${chara.image_url}" alt="${cleanName}">
+                <div class="charaOverlay" tabIndex="0">
+                    <p>${cleanName}</p>
+                </div>
             </div>
         </li>
         `;
@@ -109,9 +108,11 @@ app.showVc = (results) => {
         const cleanName = jpVc.name.replace(`,`, ``);
         const vcResultsHtml = `
         <li>
-            <img src="${jpVc.image_url}" alt="${cleanName}">
-            <div class="seiyuuOverlay" tabIndex="0">
-                <p>${cleanName}</p>
+            <div class="seiyuuContainer">
+                <img src="${jpVc.image_url}" alt="${cleanName}">
+                <div class="seiyuuOverlay" tabIndex="0">
+                    <p>${cleanName}</p>
+                </div>
             </div>
         </li>
         `;
@@ -175,12 +176,14 @@ app.displayVc = (results) => {
         const cleanName = role.character.name.replace(`,`, ``);
         const aniRoles = `
         <li>
-            <img src="${role.character.image_url}" alt="${role.character.name}">
-            <div class="overlay" tabIndex="0">
-                <p>Anime:</p>
-                <p class="animeName">${role.anime.name}</p>
-                <p>Character Name</p>
-                <p class="charaName">${cleanName}</p>
+            <div class="roleContainer">
+                <img src="${role.character.image_url}" alt="${role.character.name}">
+                <div class="overlay" tabIndex="0">
+                    <p>Anime:</p>
+                    <p class="animeName">${role.anime.name}</p>
+                    <p>Character Name</p>
+                    <p class="charaName">${cleanName}</p>
+                </div>
             </div>
         </li>
         `;

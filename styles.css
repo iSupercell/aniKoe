@@ -1,7 +1,5 @@
 html{line-height:1.15;-ms-text-size-adjust:100%;-webkit-text-size-adjust:100%}body{margin:0}article,aside,footer,header,nav,section{display:block}h1{font-size:2em;margin:.67em 0}figcaption,figure,main{display:block}figure{margin:1em 40px}hr{box-sizing:content-box;height:0;overflow:visible}pre{font-family:monospace,monospace;font-size:1em}a{background-color:transparent;-webkit-text-decoration-skip:objects}abbr[title]{border-bottom:none;text-decoration:underline;text-decoration:underline dotted}b,strong{font-weight:inherit}b,strong{font-weight:bolder}code,kbd,samp{font-family:monospace,monospace;font-size:1em}dfn{font-style:italic}mark{background-color:#ff0;color:#000}small{font-size:80%}sub,sup{font-size:75%;line-height:0;position:relative;vertical-align:baseline}sub{bottom:-.25em}sup{top:-.5em}audio,video{display:inline-block}audio:not([controls]){display:none;height:0}img{border-style:none}svg:not(:root){overflow:hidden}button,input,optgroup,select,textarea{font-family:sans-serif;font-size:100%;line-height:1.15;margin:0}button,input{overflow:visible}button,select{text-transform:none}button,html [type=button],[type=reset],[type=submit]{-webkit-appearance:button}button::-moz-focus-inner,[type=button]::-moz-focus-inner,[type=reset]::-moz-focus-inner,[type=submit]::-moz-focus-inner{border-style:none;padding:0}button:-moz-focusring,[type=button]:-moz-focusring,[type=reset]:-moz-focusring,[type=submit]:-moz-focusring{outline:1px dotted ButtonText}fieldset{padding:.35em .75em .625em}legend{box-sizing:border-box;color:inherit;display:table;max-width:100%;padding:0;white-space:normal}progress{display:inline-block;vertical-align:baseline}textarea{overflow:auto}[type=checkbox],[type=radio]{box-sizing:border-box;padding:0}[type=number]::-webkit-inner-spin-button,[type=number]::-webkit-outer-spin-button{height:auto}[type=search]{-webkit-appearance:textfield;outline-offset:-2px}[type=search]::-webkit-search-cancel-button,[type=search]::-webkit-search-decoration{-webkit-appearance:none}::-webkit-file-upload-button{-webkit-appearance:button;font:inherit}details,menu{display:block}summary{display:list-item}canvas{display:inline-block}template{display:none}[hidden]{display:none}
 
-.clearfix:after {visibility: hidden; display: block; font-size: 0; content: ''; clear: both; height: 0; }
-
 html { -moz-box-sizing: border-box; -webkit-box-sizing: border-box; box-sizing: border-box;}
 
 *, *:before, *:after {box-sizing: inherit}
@@ -10,10 +8,8 @@ html { -moz-box-sizing: border-box; -webkit-box-sizing: border-box; box-sizing: 
 
 /* ------------------------------------------- */
 /* My CSS Starts Below! */
-/* Best viewed fullscreen on a 24"inch monitor */
 
-html,
-body {
+html {
     font-family: 'Noto Sans TC', sans-serif;
     font-size: 125%;
     scroll-behavior: smooth;
@@ -22,6 +18,7 @@ body {
 body {
     background: url(./assets/bgimg.png);
     font-size: 0.8rem;
+    line-height: 22px;
 }
 
 main {
@@ -29,7 +26,7 @@ main {
 }
 
 .wrapper {
-	margin: 0 auto -38px;
+	margin: 0 auto;
     max-width: 1400px;
     width: 85%;
 }
@@ -40,20 +37,22 @@ form,
 .vcContainer,
 .voiceRoles,
 .aniChara,
+.charaOverlay,
+.seiyuuOverlay,
 .overlay {
     display: flex;
     justify-content: center;
 }
 
 h1,
-a:hover,
 .roles h2,
-input[type="submit"]:hover,
-input[type="submit"]:focus,
+input[type="submit"],
+input[type="submit"],
 .overlay .animeName,
 .overlay .charaName,
-footer p {
-    color: #FFFFFF;
+footer p,
+footer a {
+    color: #FFF;
     margin: 0;
 }
 
@@ -69,9 +68,38 @@ form i {
     font-size: 1.5rem;
 }
 
+ul {
+    list-style-type: none;
+    padding: 0;
+}
+
 img {
     display: block;
     width: 100%;
+}
+
+a,
+input[type="submit"]:hover,
+input[type="submit"]:focus,
+.scrollUp a:hover,
+.scrollUp a:focus,
+footer a:hover,
+footer a:focus {
+    color: #000;
+    text-decoration: none;
+    transition-duration: 0.3s;
+}
+
+a:hover,
+a:focus,
+.scrollUp a {
+    color: #00BBFF;
+}
+
+.direction,
+.notice,
+footer {
+    text-align: center;
 }
 
 .hide {
@@ -105,46 +133,42 @@ form {
     margin: 100px 0 20px 0;
 }
 
-form i {
+.searchIcon {
     margin: 10px 15px 0 0;
 }
 
 input {
-    font-family: 'Noto Sans TC', sans-serif;
     border: none;
+    border-bottom: solid 2px #00BBFF;
+    font-family: 'Noto Sans TC', sans-serif;
     max-width: 600px;
     padding: 10px;
     width: 90%;
 }
 
 input[type="submit"] {
-    width: 200px;
     text-transform: uppercase;
+    transition-duration: 0.3s;
+    width: 200px;
 }
 
 input[type="submit"]:hover,
 input[type="submit"]:focus {
-    background: #00AAE8;
     cursor: pointer;
-    transition-duration: 0.3s;
-}
-
-#searchInput {
-    border-bottom: solid 2px #00BBFF;
 }
 
 
-/* --------------------- */
-/* Voice Actor Info Code */
-/* --------------------- */
+/* ---------------------------- */
+/* Characters/Voice Actors Code */
+/* ---------------------------- */
 
 .searchResult {
     background: #EFEFEF;
-    max-width: 1000px;
-    width: 90%;
     height: auto;
-    padding: 10px 40px;
     margin: 50px auto 100px auto;
+    max-width: 1000px;
+    padding: 10px 40px;
+    width: 90%;
 }
 
 .instruction {
@@ -152,26 +176,25 @@ input[type="submit"]:focus {
     text-transform: uppercase;
 }
 
-.direction {
-    text-align: center;
+.intro ul {
+    list-style-type: numeric;
+    padding-left: 40px;
 }
 
 .characterResults,
 .seiyuuResults {
     flex-wrap: wrap;
-    list-style-type: none;
-    padding: 0;
 }
 
-.characterResults li,
-.seiyuuResults li {
+.charaContainer,
+.seiyuuContainer {
     margin: 15px;
     position: relative;
     transition: 0.3s;
     width: 140px;
 }
 
-.characterResults img,
+.charaContainer img,
 .seiyuuResults img,
 .charaOverlay,
 .seiyuuOverlay {
@@ -179,10 +202,10 @@ input[type="submit"]:focus {
     border-radius: 20px;
 }
 
-.characterResults li:hover,
-.characterResults li:focus,
-.seiyuuResults li:hover,
-.seiyuuResults li:focus {
+.charaContainer:hover,
+.charaContainer:focus,
+.seiyuuContainer:hover,
+.seiyuuContainer:focus {
     cursor: pointer;
     outline: none;
     transform: scale(1.15);
@@ -193,19 +216,16 @@ input[type="submit"]:focus {
 }
 
 .portraitContainer {
-    width: 225px;
     border: solid 2px #00BBFF;
     box-shadow: -8px -8px 0px #00BBFF;
+    height: 100%;
     margin: 0 30px;
-}
-
-.vcInfo,
-.aniChara {
-    list-style: none;
+    width: 225px;
 }
 
 .vcInfo h2 {
     color: #00A6E2;
+    line-height: 36px;
     margin: 20px 0;
 }
 
@@ -217,7 +237,7 @@ input[type="submit"]:focus {
 
 
 /* -------------------- */
-/* Voice Roles Code */
+/*   Voice Roles Code   */
 /* -------------------- */
 
 .roles h2 {
@@ -225,13 +245,12 @@ input[type="submit"]:focus {
 }
 
 .voiceRoles {
-    flex-direction: column;
     align-items: center;
+    flex-direction: column;
 }
 
 .notice {
     background: #EFEFEF;
-    text-align: center;
     margin: 140px 0;
     max-width: 650px;
     padding: 20px 0;
@@ -240,15 +259,14 @@ input[type="submit"]:focus {
 
 .aniChara {
     flex-wrap: wrap;
-    max-width: 1400px;
-    width: 90%;
     margin: 80px 0 20px 0;
-    padding: 0;
+    max-width: 1400px;
+    width: 100%;
 }
 
-.aniChara li {
-    position: relative;
+.roleContainer {
     margin: 30px 15px;
+    position: relative;
     width: 180px;
 }
 
@@ -278,21 +296,12 @@ input[type="submit"]:focus {
 }
 
 .scrollUp i {
+    animation: hoverEffect 2.5s infinite linear;
     font-size: 3rem;
     margin-bottom: 100px;
     padding: 10px;
-    transition: 0.3s;
     transform: translateY(0);
-    animation: hoverEffect 2.5s infinite linear;
-}
-
-.scrollUp a {
-    color: #00BBFF;
-}
-
-.scrollUp a:hover,
-.scrollUp a:focus {
-    color: #000;
+    transition: 0.3s;
 }
 
 @keyframes hoverEffect {
@@ -306,16 +315,102 @@ input[type="submit"]:focus {
 /* Footer Code */
 
 footer {
-    text-align: center;
-    height: 38px;
-    padding-top: 10px;
+    line-height: 25px;
+    padding: 10px;
 }
 
-a {
-    color: #000000;
-    text-decoration: none;
+footer i {
+    font-size: 1.2rem;
+    padding-left: 10px;
 }
 
-a:hover {
-    transition-duration: 0.3s;
+
+/* ----------------------------------- */
+/* Media-Queries */
+
+@media (max-width: 1235px) {
+    .searchResult {
+        max-width: 1200px;
+        padding: 10px 25px;
+        width: 100%;
+    }
+
+    .charaContainer,
+    .seiyuuContainer {
+        margin: 13px;
+        width: 140px;
+    }
+}
+
+@media (max-width: 1053px) {
+    .charaContainer,
+    .seiyuuContainer {
+        font-size: 0.7rem;
+        margin: 10px;
+        width: 120px;
+    }
+}
+
+@media (max-width: 899px) {
+    .charaContainer,
+    .seiyuuContainer {
+        width: 100px;
+    }
+
+    .notice {
+        padding: 20px 30px;
+    }
+}
+
+@media (max-width: 670px) {
+    h1,
+    .roles h2 {
+        padding: 10px 0;
+        text-align: center;
+    }
+
+    input {
+        font-size: 0.75rem;
+    }
+
+    input[type="submit"] {
+        width: 120px;
+    }
+
+    .searchIcon {
+        margin: 7px 15px 0 0;
+    }
+}
+
+@media (max-width: 505px) {
+    .searchIcon {
+        display: none;
+    }
+
+    input[type="submit"] {
+        width: 80px;
+    }
+
+    .intro ul {
+        padding-left: 20px;
+    }
+}
+
+@media (max-width: 373px) {
+    h1 {
+        font-size: 2.4rem;
+    }
+
+    input {
+        font-size: 0.65rem;
+    }
+
+    .intro,
+    .notice {
+        font-size: 0.75rem;
+    }
+
+    .notice {
+        padding: 10px 9px;
+    }
 }
