@@ -154,11 +154,11 @@ app.displayVc = (results) => {
         <img src="${results.image_url}" alt="${results.name}">
     </div>
     <ul class="vcInfo">
-        <li><h2><i aria-hidden="true" class="far fa-address-card"></i> ${results.name}</h2></li>
-        <li><h3>${results.family_name} ${results.given_name}</h3></li>
+        <li><h3><i aria-hidden="true" class="far fa-address-card"></i> ${results.name}</h3></li>
+        <li><h3 class="kanji">${results.family_name} ${results.given_name}</h3></li>
         <li><p>Birthday: ${editedBday}</p></li>
         <li><p>Total Roles: ${results.voice_acting_roles.length}</p></li>
-        <li><p>MyAnimeList: <a href="${results.url}" target="_blank" rel="noopener noreferrer"> <i class="fas fa-link"></i> Click</a></p></li>
+        <li><p>My Anime List: <a href="${results.url}" target="_blank" rel="noopener noreferrer"> <i aria-hidden="true" class="fas fa-link"></i> See profile <span class="sr-only">opens in a new tab</span></a></p></li>
     </ul>
     `;
     $('.direction2, .seiyuuResults, .notice').addClass('hide');
@@ -179,9 +179,9 @@ app.displayVc = (results) => {
             <div class="roleContainer">
                 <img src="${role.character.image_url}" alt="${role.character.name}">
                 <div class="overlay" tabIndex="0">
-                    <p>Anime:</p>
+                    <p class="animeTitle">Anime:</p>
                     <p class="animeName">${role.anime.name}</p>
-                    <p>Character Name</p>
+                    <p class="charaTitle">Character Name:</p>
                     <p class="charaName">${cleanName}</p>
                 </div>
             </div>

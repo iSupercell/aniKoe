@@ -60,10 +60,11 @@ header,
 input[type="submit"],
 .sectionHeader,
 footer {
-    background: #00BBFF;
+    background: #256FDF;
 }
 
 h2,
+h3,
 form i {
     font-size: 1.5rem;
 }
@@ -93,7 +94,7 @@ footer a:focus {
 a:hover,
 a:focus,
 .scrollUp a {
-    color: #00BBFF;
+    color: #256FDF;
 }
 
 .direction,
@@ -139,7 +140,7 @@ form {
 
 input {
     border: none;
-    border-bottom: solid 2px #00BBFF;
+    border-bottom: solid 2px #256FDF;
     font-family: 'Noto Sans TC', sans-serif;
     max-width: 600px;
     padding: 10px;
@@ -198,7 +199,7 @@ input[type="submit"]:focus {
 .seiyuuResults img,
 .charaOverlay,
 .seiyuuOverlay {
-    border: 2px solid #00BBFF;
+    border: 2px solid #256FDF;
     border-radius: 20px;
 }
 
@@ -216,29 +217,33 @@ input[type="submit"]:focus {
 }
 
 .portraitContainer {
-    border: solid 2px #00BBFF;
-    box-shadow: -8px -8px 0px #00BBFF;
+    border: solid 2px #256FDF;
+    box-shadow: -8px -8px 0px #256FDF;
     height: 100%;
     margin: 0 30px;
     width: 225px;
 }
 
-.vcInfo h2 {
-    color: #00A6E2;
+.vcInfo h3 {
+    color: #256FDF;
     line-height: 36px;
-    margin: 20px 0;
+    margin: 10px 0;
 }
 
-.vcInfo h3 {
-    font-size: 2rem;
+h3.kanji {
+    font-size: 1.8rem;
     font-weight: 500;
-    margin: 20px 0 40px 0;
+    margin-bottom: 20px;
 }
 
 
 /* -------------------- */
 /*   Voice Roles Code   */
 /* -------------------- */
+
+.roles .wrapper {
+    width: 100%;
+}
 
 .roles h2 {
     padding: 10px 0 10px 50px;
@@ -273,6 +278,7 @@ input[type="submit"]:focus {
 .charaOverlay,
 .seiyuuOverlay,
 .overlay {
+    align-items: center;
 	background: rgba(0, 0, 0, 0.80);
     color: #00BBFF;
 	flex-direction: column;
@@ -308,6 +314,10 @@ input[type="submit"]:focus {
     30% {
         transform: translateY(30%);
     }
+}
+
+.animeTitle {
+    margin-top: 0;
 }
 
 
@@ -362,6 +372,29 @@ footer i {
     }
 }
 
+@media (max-width: 856px) {
+    .aniChara {
+        margin: 40px 0 20px 0;
+    }
+
+    .roleContainer {
+        margin: 30px 10px;
+        width: 150px;
+    }
+
+    .overlay {
+        font-size: 0.65rem;
+    }
+
+    .animeTitle {
+        margin-bottom: 0;
+    }
+
+    .charaTitle {
+        margin: 5px 0 0 0;
+    }
+}
+
 @media (max-width: 670px) {
     h1,
     .roles h2 {
@@ -379,6 +412,56 @@ footer i {
 
     .searchIcon {
         margin: 7px 15px 0 0;
+    }
+}
+
+@media (max-width: 640px) {
+    .searchResult {
+        margin-bottom: 60px;
+        padding: 10px 10px;
+    }
+
+    .charaContainer {
+        margin: 5px;
+        width: 80px;
+    }
+
+    .charaOverlay {
+        font-size: 0.55rem;
+        line-height: 18px;
+        padding: 0px;
+    }
+
+    .seiyuuOverlay {
+        padding: 5px;
+    }
+
+    .vcContainer {
+        align-items: center;
+        flex-direction: column;
+        margin: 50px 0 30px 0;
+    }
+
+    .portraitContainer {
+        margin: 0;
+    }
+
+    .vcInfo {
+        text-align: center;
+        margin: 0;
+    }
+}
+
+@media (max-width: 526px) {
+    .roleContainer {
+        margin: 20px 5px;
+        width: 120px;
+    }
+
+    .overlay {
+        font-size: 0.6rem;
+        line-height: 18px;
+        padding: 5px;
     }
 }
 
