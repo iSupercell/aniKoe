@@ -77,13 +77,21 @@
             <div class="sectionHeader">
                 <div class="wrapper">
                     <h2>
-                        Main Roles
                         <i aria-hidden="true" class="fas fa-user-circle"></i>
+                        <span class="headingText">Voice Roles</span>
                     </h2>
                 </div>
             </div>
 
             <div class="wrapper">
+                <form action="#" method="#" class="roleCategory" name="roleCategory">
+                    <label class="sr-only" for="vcChoice">Choose which role type to view</label>
+                    <select id="roleType" name="roleType">
+                      <option value="rolesArray" selected>All Roles</option>
+                      <option value="onlyMain">Main Roles</option>
+                      <option value="onlySupport">Support Roles</option>
+                    </select>
+                </form>
                 <div class="voiceRoles">
                     <p class="notice">Nothing to see here yet! Please search for a character name to get started.</p>
                     <ul class="aniChara hide">

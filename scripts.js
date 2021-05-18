@@ -45,13 +45,13 @@ app.getVc = (vcId) => {
         dataType: `JSON`
     }).then((data) => {
         app.displayVc(data);
+        $('#roleType').prop('disabled', false);
     });
 };
 
 
 // Code for displaying characters from search input
 app.displayChara = (results) => {
-    
     // Apply filter so that only characters in anime with image will be shown
     const charaResults = results.results;
     const animeOnly = charaResults.filter((aniChara) => {
@@ -61,14 +61,14 @@ app.displayChara = (results) => {
     animeOnly.forEach((chara) => {
         const cleanName = chara.name.replace(`,`, ``);
         const charaHtml = `
-        <li>
-            <div class="charaContainer">
-                <img src="${chara.image_url}" alt="${cleanName}">
-                <div class="charaOverlay" tabIndex="0">
-                    <p>${cleanName}</p>
+            <li>
+                <div class="charaContainer">
+                    <img src="${chara.image_url}" alt="${cleanName}">
+                    <div class="charaOverlay" tabIndex="0">
+                        <p>${cleanName}</p>
+                    </div>
                 </div>
-            </div>
-        </li>
+            </li>
         `;
         $('.intro, .direction2, .aniChara').addClass('hide');
         $('.direction1, .characterResults').removeClass('hide');
@@ -97,7 +97,6 @@ app.displayChara = (results) => {
 
 // Code for displaying JP voice actors of chosen character
 app.showVc = (results) => {
-
     // Apply filter so that only JP voice actors will be shown
     const vcList = results.voice_actors;
     const jpOnly = vcList.filter((vc) => {
@@ -107,14 +106,14 @@ app.showVc = (results) => {
     jpOnly.forEach((jpVc) => {
         const cleanName = jpVc.name.replace(`,`, ``);
         const vcResultsHtml = `
-        <li>
-            <div class="seiyuuContainer">
-                <img src="${jpVc.image_url}" alt="${cleanName}">
-                <div class="seiyuuOverlay" tabIndex="0">
-                    <p>${cleanName}</p>
+            <li>
+                <div class="seiyuuContainer">
+                    <img src="${jpVc.image_url}" alt="${cleanName}">
+                    <div class="seiyuuOverlay" tabIndex="0">
+                        <p>${cleanName}</p>
+                    </div>
                 </div>
-            </div>
-        </li>
+            </li>
         `;
         $('.direction1, .direction3, .characterResults').addClass('hide');
         $('.direction2, .seiyuuResults').removeClass('hide');
@@ -143,65 +142,98 @@ app.showVc = (results) => {
 
 // Code for displaying voice actor's info and all their main roles
 app.displayVc = (results) => {
-    
     // Cleaning up Birthday data from API results
     const editBday = results.birthday;
     const editedBday = editBday.substr(0, 10);
 
     // HTML code for voice actor information
     const vcHtml = `
-    <div class="portraitContainer">
-        <img src="${results.image_url}" alt="${results.name}">
-    </div>
-    <ul class="vcInfo">
-        <li><h3><i aria-hidden="true" class="far fa-address-card"></i> ${results.name}</h3></li>
-        <li><h3 class="kanji">${results.family_name} ${results.given_name}</h3></li>
-        <li><p>Birthday: ${editedBday}</p></li>
-        <li><p>Total Roles: ${results.voice_acting_roles.length}</p></li>
-        <li><p>My Anime List: <a href="${results.url}" target="_blank" rel="noopener noreferrer"> <i aria-hidden="true" class="fas fa-link"></i> See profile <span class="sr-only">opens in a new tab</span></a></p></li>
-    </ul>
+        <div class="portraitContainer">
+            <img src="${results.image_url}" alt="${results.name}">
+        </div>
+        <ul class="vcInfo">
+            <li><h3><i aria-hidden="true" class="far fa-address-card"></i> ${results.name}</h3></li>
+            <li><h3 class="kanji">${results.family_name} ${results.given_name}</h3></li>
+            <li><p>Birthday: ${editedBday}</p></li>
+            <li><p>Total Roles: ${results.voice_acting_roles.length}</p></li>
+            <li><p>My Anime List: <a href="${results.url}" target="_blank" rel="noopener noreferrer"> <i aria-hidden="true" class="fas fa-link"></i> See profile <span class="sr-only">opens in a new tab</span></a></p></li>
+        </ul>
     `;
     $('.direction2, .seiyuuResults, .notice').addClass('hide');
     $('.vcContainer').removeClass('hide');
     $('.vcContainer').append(vcHtml);
 
-    // Apply filter so that only main roles with image will be shown
+    // Apply filter to create new array for each role type
     const rolesArray = results.voice_acting_roles;
-    const onlyMain = rolesArray.filter((roleType) => {
-        return (roleType.character.image_url != `https://cdn.myanimelist.net/images/questionmark_23.gif` && roleType.role.length == 4);
+    // Main roles array
+    const onlyMain = rolesArray.filter((mainType) => {
+        return mainType.role.length == 4;
+    });
+    // Support roles array
+    const onlySupport = rolesArray.filter((supportType) => {
+        return supportType.role.length === 10;
     });
 
     // HTML code for voice roles
-    onlyMain.forEach((role) => {
-        const cleanName = role.character.name.replace(`,`, ``);
-        const aniRoles = `
-        <li>
-            <div class="roleContainer">
-                <img src="${role.character.image_url}" alt="${role.character.name}">
-                <div class="overlay" tabIndex="0">
-                    <p class="animeTitle">Anime:</p>
-                    <p class="animeName">${role.anime.name}</p>
-                    <p class="charaTitle">Character Name:</p>
-                    <p class="charaName">${cleanName}</p>
-                </div>
-            </div>
-        </li>
-        `;
-        $('.aniChara').removeClass('hide');
-        $('.aniChara').append(aniRoles);
+    const appendRoles = (roleType) => {
+        roleType.forEach((role) => {
+            const cleanName = role.character.name.replace(`,`, ``);
+            if (role.character.image_url === `https://cdn.myanimelist.net/images/questionmark_23.gif` || role.character.image_url === `https://cdn.myanimelist.net/images/questionmark_23.gif?s=b2caae0942e99347ceebbfe730682689`) {
+                role.character.image_url = `./assets/placeboImage.png`;
+            };
+            const aniRoles = `
+                <li>
+                    <div class="roleContainer">
+                        <img src="${role.character.image_url}" alt="${role.character.name}">
+                        <div class="overlay" tabIndex="0">
+                            <p class="animeTitle">Anime:</p>
+                            <p class="animeName">${role.anime.name}</p>
+                            <p class="charaTitle">Character Name:</p>
+                            <p class="charaName">${cleanName} (${role.role} role)</p>
+                        </div>
+                    </div>
+                </li>
+            `;
+            $('.aniChara').append(aniRoles);
+            $('.aniChara').removeClass('hide');
+        });
+    };
+
+    appendRoles(rolesArray);
+
+    // Showing voice roles based on user selection
+    $('#roleType').on('change', () => {
+        const dropdownVal = $('#roleType').val();
+        if (dropdownVal === 'onlyMain') {
+            $('.aniChara').empty();
+            appendRoles(onlyMain);
+            $('.headingText').html('Main Roles');
+        } else if (dropdownVal === 'onlySupport') {
+            $('.aniChara').empty();
+            appendRoles(onlySupport);
+            $('.headingText').html('Support Roles');
+        } else {
+            $('.aniChara').empty();
+            appendRoles(rolesArray);
+            $('.headingText').html('Voice Roles');
+        };
     });
 };
 
 
 // Code that kicks off the app
-app.init = function() {
+app.init = () => {
     // Code for Search input
-    $('form').on('submit', function(event) {
+    $('.myForm').on('submit', (event) => {
         event.preventDefault();
         const charaSearch = $('input').val();
         app.getCharaList(charaSearch);
         $('#searchInput').val('');
     });
+
+    // Code for dropdown menu
+    $('#roleType').prop('disabled', true);
+    $('#roleType').val('rolesArray');
 };
 
 

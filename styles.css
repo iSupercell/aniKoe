@@ -129,8 +129,7 @@ h1 {
 /* Search Input Code */
 /* ----------------- */
 
-form {
-    font-size: 1rem;
+.myForm {
     margin: 100px 0 20px 0;
 }
 
@@ -138,10 +137,12 @@ form {
     margin: 10px 15px 0 0;
 }
 
-input {
+input,
+select {
     border: none;
     border-bottom: solid 2px #256FDF;
     font-family: 'Noto Sans TC', sans-serif;
+    font-size: 1rem;
     max-width: 600px;
     padding: 10px;
     width: 90%;
@@ -249,6 +250,17 @@ h3.kanji {
     padding: 10px 0 10px 50px;
 }
 
+select {
+    -moz-appearance: none;
+    -webkit-appearance: none;
+    appearance: none;
+    background-image: url(./assets/chevron-down-solid.svg);
+    background-repeat: no-repeat;
+    background-position: 95% center;
+    margin-top: 80px;
+    max-width: 250px;
+}
+
 .voiceRoles {
     align-items: center;
     flex-direction: column;
@@ -270,6 +282,7 @@ h3.kanji {
 }
 
 .roleContainer {
+    height: 280px;
     margin: 30px 15px;
     position: relative;
     width: 180px;
@@ -378,6 +391,7 @@ footer i {
     }
 
     .roleContainer {
+        height: 234px;
         margin: 30px 10px;
         width: 150px;
     }
@@ -454,6 +468,7 @@ footer i {
 
 @media (max-width: 526px) {
     .roleContainer {
+        height: 187px;
         margin: 20px 5px;
         width: 120px;
     }
@@ -492,8 +507,10 @@ footer i {
     .notice {
         font-size: 0.75rem;
     }
+}
 
+@media (max-width: 396px) {
     .notice {
-        padding: 10px 9px;
+        padding: 10px 25px;
     }
 }
