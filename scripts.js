@@ -13,7 +13,7 @@ app.getCharaList = (characterName) => {
             q: `${characterName}`,
             genre: 12,
             genre_exclude: 0,
-            limit: 10,
+            limit: 26,
         }
     }).then((data) => {
         $('.aniChara, .characterResults, .seiyuuResults, .vcContainer').empty();
