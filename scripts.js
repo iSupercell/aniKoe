@@ -19,6 +19,8 @@ app.getCharaList = (characterName) => {
         $('.aniChara, .characterResults, .seiyuuResults, .vcContainer').empty();
         $('.vcContainer, .direction3').addClass('hide');
         $('.notice').removeClass('hide');
+        $('#roleType').prop('disabled', true);
+        $('#roleType').val('rolesArray');
         app.displayChara(data);
     }).catch((err) => {
         $('.direction3, .notice').removeClass('hide');
