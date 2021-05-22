@@ -118,7 +118,7 @@ header {
 h1 {
     font-size: 2.6rem;
     font-weight: 900;
-    padding: 10px 15px 10px 50px;
+    padding: 10px 15px 10px 0;
 }
 
 
@@ -242,12 +242,8 @@ h3.kanji {
 /*   Voice Roles Code   */
 /* -------------------- */
 
-.roles .wrapper {
-    width: 100%;
-}
-
 .roles h2 {
-    padding: 10px 0 10px 50px;
+    padding: 10px 0 10px 0;
 }
 
 select {
